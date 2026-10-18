@@ -539,42 +539,60 @@
     };
   }
 
-  function buildValueSeries(perAsset) {
-    const empty = { labels: [], total: [], perAsset: {} };
-    if (!prices || !prices.assets || !movs.length) return empty;
+  function buildValueSeries() {
+    const perAssetEmpty = {};
+    ASSETS.forEach(a => { perAssetEmpty[a.key] = []; });
+    if (!prices || !prices.assets || !movs.length) return { labels: [], total: [], perAsset: perAssetEmpty };
+
     const firstDate = movs.reduce((min, m) => (m.fecha < min ? m.fecha : min), movs[0].fecha);
-    const dateSet = new Set();
-    ASSETS.forEach(a => {
-      const info = prices.assets[a.key]; if (!info || !info.series) return;
-      info.series.forEach(pt => { if (pt[0] >= firstDate) dateSet.add(pt[0]); });
-    });
-    const labels = Array.from(dateSet).sort();
-    // pasos de unidades por activo
+    const today = todayISO();
+    const endDate = today > firstDate ? today : firstDate;
+
+    // Un punto por día, desde el primer movimiento hasta hoy.
+    // (Así la gráfica siempre tiene datos, aunque el primer movimiento sea de hoy.)
+    const labels = [];
+    let cur = Date.parse(firstDate + "T00:00:00Z");
+    const end = Date.parse(endDate + "T00:00:00Z");
+    let guard = 0;
+    while (cur <= end && guard < 2600) {
+      labels.push(new Date(cur).toISOString().slice(0, 10));
+      cur += 86400000; guard++;
+    }
+
+    // Participaciones que se van sumando en cada activo
     const steps = {};
     ASSETS.forEach(a => {
       const info = prices.assets[a.key];
-      steps[a.key] = info && info.series ? movs.filter(m => m.activo === a.key).map(m => {
-        const p = priceOnOrBefore(info.series, m.fecha);
-        const sign = m.tipo === "retirada" ? -1 : 1;
-        return { fecha: m.fecha, du: p ? sign * Number(m.importe) / p : 0 };
-      }) : [];
+      steps[a.key] = (info && info.series)
+        ? movs.filter(m => m.activo === a.key).map(m => {
+            const p = priceOnOrBefore(info.series, m.fecha);
+            const sign = m.tipo === "retirada" ? -1 : 1;
+            return { fecha: m.fecha, du: p ? sign * Number(m.importe) / p : 0 };
+          })
+        : [];
     });
-    const total = [], seriesByAsset = {};
-    ASSETS.forEach(a => { seriesByAsset[a.key] = []; });
+
+    const total = [];
+    const perAsset = {};
+    ASSETS.forEach(a => { perAsset[a.key] = []; });
+
     labels.forEach(d => {
       let sum = 0;
       ASSETS.forEach(a => {
-        const info = prices.assets[a.key]; if (!info || !info.series) { seriesByAsset[a.key].push(null); return; }
+        const info = prices.assets[a.key];
+        if (!info || !info.series) { perAsset[a.key].push(null); return; }
         let units = 0;
-        steps[a.key].forEach(s => { if (s.fecha <= d) units += s.du; });
+        const st = steps[a.key];
+        for (let i = 0; i < st.length; i++) { if (st[i].fecha <= d) units += st[i].du; }
         const p = priceOnOrBefore(info.series, d) || 0;
         const v = units * p;
-        seriesByAsset[a.key].push(v);
+        perAsset[a.key].push(v);
         sum += v;
       });
       total.push(sum);
     });
-    return { labels, total, perAsset: seriesByAsset };
+
+    return { labels, total, perAsset };
   }
 
   /* ---------- render ---------- */
@@ -651,12 +669,13 @@
 
   function renderLine(series) {
     const labels = series.labels.map(fmtDate);
+    const few = series.labels.length <= 45;
     const datasets = [{
       label: "Total", data: series.total, borderColor: "#4f46e5", backgroundColor: "rgba(79,70,229,0.10)",
-      borderWidth: 3, tension: 0.25, fill: true, pointRadius: 0, pointHoverRadius: 5
+      borderWidth: 3, tension: 0.25, fill: true, pointRadius: few ? 3 : 0, pointHoverRadius: 5
     }];
     ASSETS.forEach(a => {
-      datasets.push({ label: a.label, data: series.perAsset[a.key], borderColor: a.color, backgroundColor: a.color, borderWidth: 1.6, tension: 0.25, fill: false, hidden: true, pointRadius: 0, pointHoverRadius: 4 });
+      datasets.push({ label: a.label, data: series.perAsset[a.key], borderColor: a.color, backgroundColor: a.color, borderWidth: 1.6, tension: 0.25, fill: false, hidden: true, pointRadius: few ? 2 : 0, pointHoverRadius: 4 });
     });
     const cfgObj = {
       type: "line",
