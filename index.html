@@ -8,8 +8,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <style>
   :root {
-    --bg: #0f172a;
-    --bg-soft: #1e293b;
     --card: #ffffff;
     --card-soft: #f8fafc;
     --text: #0f172a;
@@ -22,90 +20,41 @@
     --bad: #ef4444;
     --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
     --radius: 16px;
-    --world: #2563eb;
-    --emerging: #f59e0b;
-    --bitcoin: #f7931a;
-    --renta: #10b981;
   }
   * { box-sizing: border-box; }
   body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    margin: 0;
-    color: var(--text);
+    margin: 0; color: var(--text);
     background: linear-gradient(160deg, #eef2ff 0%, #f8fafc 55%, #ecfdf5 100%);
-    min-height: 100vh;
-    padding: 20px 16px 48px;
+    min-height: 100vh; padding: 20px 16px 48px;
   }
   .container { max-width: 1080px; margin: 0 auto; }
 
-  /* ---------- Config warning ---------- */
-  #config-warning {
-    display: none;
-    background: #fffbeb;
-    border: 1px solid #fde68a;
-    color: #92400e;
-    border-radius: var(--radius);
-    padding: 18px 22px;
-    margin-bottom: 20px;
-    font-size: 0.95rem;
-  }
-  #config-warning code {
-    background: #fef3c7;
-    padding: 2px 6px;
-    border-radius: 6px;
-    font-size: 0.85rem;
-  }
+  #config-warning { display: none; background: #fffbeb; border: 1px solid #fde68a; color: #92400e; border-radius: var(--radius); padding: 18px 22px; margin-bottom: 20px; font-size: 0.95rem; }
+  #config-warning code { background: #fef3c7; padding: 2px 6px; border-radius: 6px; font-size: 0.85rem; }
 
-  /* ---------- Auth ---------- */
-  #auth-view {
-    display: none;
-    max-width: 420px;
-    margin: 6vh auto 0;
-  }
-  .auth-card {
-    background: var(--card);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 32px 28px;
-    border: 1px solid var(--border);
-  }
+  #auth-view { display: none; max-width: 420px; margin: 6vh auto 0; }
+  .auth-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 32px 28px; border: 1px solid var(--border); }
   .auth-logo { font-size: 2.4rem; text-align: center; margin-bottom: 6px; }
   .auth-title { text-align: center; font-size: 1.4rem; font-weight: 800; margin: 0 0 4px; }
   .auth-sub { text-align: center; color: var(--muted); font-size: 0.9rem; margin: 0 0 22px; }
+
   .field { margin-bottom: 14px; }
   .field label { display: block; font-size: 0.82rem; font-weight: 700; color: #334155; margin-bottom: 6px; }
   .field input, .field select {
-    width: 100%;
-    padding: 11px 13px;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    font-size: 0.95rem;
-    font-family: inherit;
-    background: #fff;
-    color: var(--text);
+    width: 100%; padding: 11px 13px; border: 1px solid var(--border); border-radius: 10px;
+    font-size: 0.95rem; font-family: inherit; background: #fff; color: var(--text);
   }
-  .field input:focus, .field select:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
-  }
+  .field input:focus, .field select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15); }
 
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    border: none;
-    border-radius: 10px;
-    padding: 11px 18px;
-    font-size: 0.95rem;
-    font-weight: 700;
-    font-family: inherit;
-    cursor: pointer;
-    transition: all 0.18s ease;
-  }
-  .btn-primary { background: var(--primary); color: #fff; width: 100%; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: none; border-radius: 10px; padding: 11px 18px; font-size: 0.95rem; font-weight: 700; font-family: inherit; cursor: pointer; transition: all 0.18s ease; }
+  .btn-primary { background: var(--primary); color: #fff; }
   .btn-primary:hover { background: var(--primary-hover); }
+  .btn-block { width: 100%; }
+  .btn-good { background: var(--good); color: #fff; }
+  .btn-good:hover { filter: brightness(0.95); }
+  .btn-bad { background: var(--bad); color: #fff; }
+  .btn-bad:hover { filter: brightness(0.95); }
   .btn-ghost { background: #fff; color: var(--text); border: 1px solid var(--border); }
   .btn-ghost:hover { background: var(--card-soft); }
   .btn-danger { background: #fef2f2; color: var(--bad); border: 1px solid #fecaca; padding: 6px 10px; font-size: 0.82rem; }
@@ -120,78 +69,66 @@
   .msg.ok { display: block; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
   .msg.info { display: block; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
 
-  /* ---------- App ---------- */
   #app-view { display: none; }
-  .topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 22px;
-    flex-wrap: wrap;
-  }
+  .topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 22px; flex-wrap: wrap; }
   .brand { display: flex; align-items: center; gap: 12px; }
-  .brand .logo {
-    width: 44px; height: 44px; border-radius: 12px;
-    background: linear-gradient(135deg, #4f46e5, #0ea5e9);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.4rem; color: #fff;
-  }
+  .brand .logo { width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg, #4f46e5, #0ea5e9); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: #fff; }
   .brand h1 { font-size: 1.35rem; margin: 0; font-weight: 800; }
   .brand p { margin: 0; font-size: 0.82rem; color: var(--muted); }
   .user-box { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--muted); }
   .user-box .email { font-weight: 600; color: #334155; }
 
-  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 20px; }
-  .kpi {
-    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 18px 20px; box-shadow: var(--shadow);
-  }
-  .kpi .label { font-size: 0.8rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
-  .kpi .value { font-size: 1.7rem; font-weight: 800; margin-top: 6px; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin-bottom: 20px; }
+  .kpi { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow); }
+  .kpi .label { font-size: 0.78rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
+  .kpi .value { font-size: 1.6rem; font-weight: 800; margin-top: 6px; }
   .kpi .sub { font-size: 0.82rem; color: var(--muted); margin-top: 4px; }
   .up { color: var(--good); font-weight: 700; }
   .down { color: var(--bad); font-weight: 700; }
 
-  .grid-2 { display: grid; grid-template-columns: 1fr 1.1fr; gap: 18px; margin-bottom: 18px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1.15fr; gap: 18px; margin-bottom: 18px; }
   @media (max-width: 820px) { .grid-2 { grid-template-columns: 1fr; } }
 
-  .panel {
-    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 20px 22px; box-shadow: var(--shadow);
-  }
+  .panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; box-shadow: var(--shadow); }
   .panel h2 { font-size: 1.05rem; margin: 0 0 14px; font-weight: 800; }
   .panel .hint { font-size: 0.8rem; color: var(--muted); margin-top: 10px; }
-
   .chart-wrap { position: relative; height: 260px; }
-  .chart-wrap.tall { height: 320px; }
+  .chart-wrap.tall { height: 330px; }
 
   .asset-list { display: flex; flex-direction: column; gap: 10px; }
-  .asset-row {
-    display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    padding: 12px 14px; border-radius: 12px; background: var(--card-soft); border: 1px solid var(--border);
-  }
+  .asset-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border-radius: 12px; background: var(--card-soft); border: 1px solid var(--border); }
   .asset-row .left { display: flex; align-items: center; gap: 12px; min-width: 0; }
   .dot { width: 12px; height: 12px; border-radius: 50%; flex: 0 0 auto; }
   .asset-row .name { font-weight: 700; font-size: 0.95rem; }
-  .asset-row .name small { display: block; font-weight: 500; color: var(--muted); font-size: 0.78rem; }
-  .asset-row .right { text-align: right; }
+  .asset-row .name small { display: block; font-weight: 500; color: var(--muted); font-size: 0.76rem; }
+  .asset-row .right { text-align: right; white-space: nowrap; }
   .asset-row .amount { font-weight: 800; }
   .asset-row .pct { font-size: 0.82rem; color: var(--muted); }
 
-  .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; align-items: end; }
+  .chip { display: inline-block; font-size: 0.76rem; font-weight: 700; padding: 2px 8px; border-radius: 9999px; }
+  .chip.up { background: #ecfdf5; color: #047857; }
+  .chip.down { background: #fef2f2; color: #b91c1c; }
+
+  .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; align-items: end; }
   .form-actions { margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap; }
+
+  .segmented { display: flex; background: #f1f5f9; border-radius: 10px; padding: 4px; border: 1px solid var(--border); }
+  .segmented button { flex: 1; border: none; background: transparent; padding: 8px 10px; border-radius: 8px; font-weight: 700; font-size: 0.88rem; font-family: inherit; color: var(--muted); cursor: pointer; transition: all 0.15s ease; }
+  .segmented button.active[data-tipo="aportacion"] { background: var(--good); color: #fff; }
+  .segmented button.active[data-tipo="retirada"] { background: var(--bad); color: #fff; }
 
   table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
   th, td { padding: 10px 8px; text-align: right; border-bottom: 1px solid var(--border); white-space: nowrap; }
   th:first-child, td:first-child { text-align: left; }
-  thead th { font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); }
+  thead th { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); }
   tbody tr:hover { background: var(--card-soft); }
   .table-scroll { overflow-x: auto; }
   .empty { text-align: center; color: var(--muted); padding: 26px; font-size: 0.92rem; }
-
-  footer { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top: 34px; }
   .pill { display: inline-block; background: var(--primary-light); color: var(--primary-hover); font-size: 0.72rem; font-weight: 700; padding: 3px 9px; border-radius: 9999px; }
+  footer { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top: 34px; }
+  .tag { display:inline-block; padding:2px 8px; border-radius:6px; font-size:0.76rem; font-weight:700; }
+  .tag.ap { background:#ecfdf5; color:#047857; }
+  .tag.re { background:#fef2f2; color:#b91c1c; }
 </style>
 </head>
 <body>
@@ -199,8 +136,7 @@
 
   <div id="config-warning">
     <strong>⚙️ Falta configurar Supabase.</strong><br>
-    Abre el archivo <code>config.js</code> y pega tu <code>SUPABASE_URL</code> y tu <code>SUPABASE_ANON_KEY</code>.
-    Tienes los pasos en el <code>README.md</code>.
+    Abre <code>config.js</code> y pega tu <code>SUPABASE_URL</code> y tu <code>SUPABASE_ANON_KEY</code> (ver <code>README.md</code>).
   </div>
 
   <!-- LOGIN -->
@@ -209,7 +145,6 @@
       <div class="auth-logo">💰</div>
       <h1 class="auth-title">Mis Finanzas</h1>
       <p class="auth-sub">Accede para ver tu cartera privada</p>
-
       <form id="auth-form">
         <div class="field">
           <label for="email">Correo electrónico</label>
@@ -219,9 +154,8 @@
           <label for="password">Contraseña</label>
           <input type="password" id="password" autocomplete="current-password" required minlength="6" placeholder="••••••••">
         </div>
-        <button type="submit" class="btn btn-primary" id="auth-submit">Entrar</button>
+        <button type="submit" class="btn btn-primary btn-block" id="auth-submit">Entrar</button>
       </form>
-
       <div class="auth-switch">
         <span id="switch-text">¿No tienes cuenta?</span>
         <a id="switch-link">Crear cuenta</a>
@@ -235,10 +169,7 @@
     <div class="topbar">
       <div class="brand">
         <div class="logo">💰</div>
-        <div>
-          <h1>Mis Finanzas</h1>
-          <p>Panel privado de inversión</p>
-        </div>
+        <div><h1>Mis Finanzas</h1><p>Panel privado de inversión</p></div>
       </div>
       <div class="user-box">
         <span class="email" id="user-email"></span>
@@ -247,94 +178,93 @@
     </div>
 
     <div id="demo-banner" style="display:none;background:#eef2ff;border:1px solid #c7d2fe;color:#3730a3;border-radius:12px;padding:12px 16px;margin-bottom:18px;font-size:0.9rem;">
-      👀 <strong>Modo demo</strong> — estás viendo datos de ejemplo. No se guarda nada.
-      Cuando configures Supabase, esta misma pantalla será tu cartera real.
+      👀 <strong>Modo demo</strong> — datos de ejemplo con precios reales. No se guarda nada.
     </div>
+
+    <div id="prices-warn" style="display:none;background:#fffbeb;border:1px solid #fde68a;color:#92400e;border-radius:12px;padding:12px 16px;margin-bottom:18px;font-size:0.9rem;"></div>
 
     <!-- KPIs -->
     <div class="kpis">
       <div class="kpi">
-        <div class="label">Total invertido</div>
-        <div class="value" id="kpi-total">—</div>
-        <div class="sub" id="kpi-total-sub">Sin registros</div>
+        <div class="label">Valor actual</div>
+        <div class="value" id="kpi-value">—</div>
+        <div class="sub" id="kpi-value-sub">—</div>
       </div>
       <div class="kpi">
-        <div class="label">Variación desde el inicio</div>
-        <div class="value" id="kpi-change">—</div>
-        <div class="sub" id="kpi-change-sub">—</div>
+        <div class="label">Invertido (neto)</div>
+        <div class="value" id="kpi-invested">—</div>
+        <div class="sub" id="kpi-invested-sub">—</div>
       </div>
       <div class="kpi">
-        <div class="label">Último registro</div>
-        <div class="value" id="kpi-last">—</div>
-        <div class="sub" id="kpi-last-sub">—</div>
+        <div class="label">Ganancia / Pérdida</div>
+        <div class="value" id="kpi-pl">—</div>
+        <div class="sub" id="kpi-pl-sub">—</div>
       </div>
       <div class="kpi">
-        <div class="label">Bitcoin hoy</div>
-        <div class="value" id="kpi-btc">—</div>
-        <div class="sub">Precio de mercado (EUR)</div>
+        <div class="label">Variación hoy</div>
+        <div class="value" id="kpi-today">—</div>
+        <div class="sub" id="kpi-today-sub">—</div>
       </div>
     </div>
 
-    <!-- Gráficas -->
     <div class="grid-2">
       <div class="panel">
         <h2>Distribución actual</h2>
         <div class="chart-wrap"><canvas id="donut"></canvas></div>
-        <p class="hint">Porcentaje que representa cada activo sobre el total.</p>
+        <p class="hint">Porcentaje que representa cada activo sobre el valor total.</p>
       </div>
       <div class="panel">
         <h2>Tu cartera</h2>
         <div class="asset-list" id="asset-list"></div>
-        <p class="hint">Pulsa en la leyenda del gráfico de abajo para mostrar u ocultar cada activo.</p>
       </div>
     </div>
 
     <div class="panel" style="margin-bottom:18px;">
       <h2>Evolución de la cartera</h2>
       <div class="chart-wrap tall"><canvas id="line"></canvas></div>
+      <p class="hint" id="line-hint">Pulsa en la leyenda para mostrar u ocultar cada activo.</p>
     </div>
 
-    <!-- Formulario -->
+    <!-- Registrar movimiento -->
     <div class="panel" style="margin-bottom:18px;">
-      <h2>➕ Añadir / actualizar registro</h2>
+      <h2>➕ Registrar movimiento</h2>
       <p class="hint" style="margin-top:0;margin-bottom:14px;">
-        Escribe el <strong>valor actual</strong> de cada activo en euros. Si repites la misma fecha, se actualiza ese registro.
+        Añade lo que <strong>inviertes</strong> y resta lo que <strong>sacas</strong>. La cantidad se acumula sobre lo que ya tienes.
       </p>
-      <form id="entry-form">
+      <form id="mov-form">
         <div class="form-grid">
           <div class="field">
-            <label for="fecha">Fecha</label>
-            <input type="date" id="fecha" required>
+            <label for="mov-fecha">Fecha</label>
+            <input type="date" id="mov-fecha" required>
           </div>
           <div class="field">
-            <label for="msci_world">🌍 MSCI World (€)</label>
-            <input type="number" id="msci_world" step="0.01" min="0" value="0">
+            <label for="mov-activo">Activo</label>
+            <select id="mov-activo"></select>
           </div>
           <div class="field">
-            <label for="msci_emerging">🌏 MSCI Emerging (€)</label>
-            <input type="number" id="msci_emerging" step="0.01" min="0" value="0">
+            <label>Tipo</label>
+            <div class="segmented" id="mov-tipo">
+              <button type="button" data-tipo="aportacion" class="active">➕ Aportar</button>
+              <button type="button" data-tipo="retirada">➖ Retirar</button>
+            </div>
           </div>
           <div class="field">
-            <label for="bitcoin">₿ Bitcoin (€)</label>
-            <input type="number" id="bitcoin" step="0.01" min="0" value="0">
-          </div>
-          <div class="field">
-            <label for="renta_fija">🏦 Renta Fija (€)</label>
-            <input type="number" id="renta_fija" step="0.01" min="0" value="0">
+            <label for="mov-importe">Importe (€)</label>
+            <input type="number" id="mov-importe" step="0.01" min="0.01" placeholder="0,00" required>
           </div>
         </div>
         <div class="form-actions">
-          <button type="submit" class="btn btn-primary" style="width:auto;" id="save-btn">Guardar registro</button>
-          <button type="button" class="btn btn-ghost" id="clear-btn">Limpiar</button>
+          <button type="submit" class="btn btn-primary" id="mov-save">Guardar movimiento</button>
+          <button type="button" class="btn btn-ghost" id="mov-clear">Limpiar</button>
         </div>
-        <div id="entry-msg" class="msg"></div>
+        <div id="mov-msg" class="msg"></div>
       </form>
     </div>
 
-    <!-- Tabla -->
+    <!-- Histórico de movimientos -->
     <div class="panel">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
-        <h2 style="margin:0;">📚 Histórico</h2>
+        <h2 style="margin:0;">📚 Movimientos</h2>
         <button class="btn btn-ghost btn-mini" id="export-btn">⬇️ Exportar CSV</button>
       </div>
       <div class="table-scroll">
@@ -342,22 +272,22 @@
           <thead>
             <tr>
               <th>Fecha</th>
-              <th>World</th>
-              <th>Emerging</th>
-              <th>Bitcoin</th>
-              <th>Renta Fija</th>
-              <th>Total</th>
+              <th>Activo</th>
+              <th>Tipo</th>
+              <th>Importe</th>
+              <th>Precio</th>
+              <th>Participaciones</th>
               <th></th>
             </tr>
           </thead>
-          <tbody id="history-body"></tbody>
+          <tbody id="mov-body"></tbody>
         </table>
       </div>
-      <div class="empty" id="history-empty">Todavía no hay registros. Añade el primero arriba. 👆</div>
+      <div class="empty" id="mov-empty">Todavía no hay movimientos. Registra el primero arriba. 👆</div>
     </div>
 
     <footer>
-      <p><span class="pill">PRIVADO</span> &nbsp;Tus datos solo son visibles con tu cuenta.</p>
+      <p><span class="pill">PRIVADO</span> &nbsp;<span id="prices-note">Precios: cargando…</span></p>
     </footer>
   </section>
 
@@ -377,51 +307,49 @@
     { key: "bitcoin",       label: "Bitcoin",       color: "#f7931a", emoji: "₿" },
     { key: "renta_fija",    label: "Renta Fija",    color: "#10b981", emoji: "🏦" }
   ];
+  const ASSET_MAP = {};
+  ASSETS.forEach(a => { ASSET_MAP[a.key] = a; });
 
   const eur = new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR", maximumFractionDigits: 2 });
-  const eurShort = new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
-  const pct = (n) => (n * 100).toFixed(1).replace(".", ",") + " %";
+  const eur0 = new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
+  const num = new Intl.NumberFormat("es-ES", { maximumFractionDigits: 4 });
+  const pctF = (n) => (n * 100).toFixed(2).replace(".", ",") + " %";
+  const signed = (n) => (n >= 0 ? "+" : "−") + eur.format(Math.abs(n));
   const $ = (id) => document.getElementById(id);
 
-  let sb = null;
-  let user = null;
-  let rows = [];
-  let lineChart = null;
-  let donutChart = null;
-  let authMode = "signin"; // "signin" | "signup"
+  let sb = null, user = null, movs = [], prices = null;
+  let lineChart = null, donutChart = null, authMode = "signin", movTipo = "aportacion";
   const params = new URLSearchParams(window.location.search);
   const DEMO = params.get("demo") === "1";
 
-  if (CONFIGURED) {
-    sb = supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY);
-  }
+  if (CONFIGURED) sb = supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY);
 
-  /* ---------------- Utilidades UI ---------------- */
-  function showMsg(el, text, type) {
-    el.className = "msg " + (type || "info");
-    el.textContent = text;
-    el.style.display = "block";
-  }
+  /* ---------- utils ---------- */
+  function showMsg(el, text, type) { el.className = "msg " + (type || "info"); el.textContent = text; el.style.display = "block"; }
   function hideMsg(el) { el.style.display = "none"; el.textContent = ""; }
+  function fmtDate(iso) { if (!iso) return "—"; const [y, m, d] = iso.split("-"); return `${d}/${m}/${y.slice(2)}`; }
+  function todayISO() { const d = new Date(); return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10); }
 
-  function fmtDateShort(iso) {
-    const [y, m, d] = iso.split("-");
-    return `${d}/${m}/${y.slice(2)}`;
+  // precio más reciente <= fecha (búsqueda binaria). Si la fecha es anterior al histórico, usa el primer precio.
+  function priceOnOrBefore(series, date) {
+    if (!series || !series.length) return null;
+    let lo = 0, hi = series.length - 1, ans = null;
+    while (lo <= hi) {
+      const mid = (lo + hi) >> 1;
+      if (series[mid][0] <= date) { ans = series[mid][1]; lo = mid + 1; } else { hi = mid - 1; }
+    }
+    return ans == null ? series[0][1] : ans;
   }
-  function fmtDateLong(iso) {
-    const [y, m, d] = iso.split("-");
-    const months = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
-    return `${parseInt(d,10)} ${months[parseInt(m,10)-1]} ${y}`;
+  function lastPoint(key) {
+    const a = prices && prices.assets && prices.assets[key];
+    if (!a || !a.series || !a.series.length) return null;
+    return a.series[a.series.length - 1];
   }
-  function todayISO() {
-    const d = new Date();
-    return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
-  }
-  function totalOf(r) { return ASSETS.reduce((s, a) => s + (Number(r[a.key]) || 0), 0); }
 
-  /* ---------------- Arranque ---------------- */
+  /* ---------- arranque ---------- */
   document.addEventListener("DOMContentLoaded", () => {
-    $("fecha").value = todayISO();
+    $("mov-fecha").value = todayISO();
+    buildAssetSelect();
 
     if (DEMO) { startDemo(); return; }
 
@@ -432,72 +360,35 @@
       $("auth-submit").textContent = "Configura Supabase";
       return;
     }
-
     bindEvents();
-
-    sb.auth.getSession().then(({ data }) => {
-      handleSession(data.session);
-    });
-
-    sb.auth.onAuthStateChange((_event, session) => {
-      handleSession(session);
-    });
-
-    loadBtcPrice();
+    loadPrices();
+    sb.auth.getSession().then(({ data }) => handleSession(data.session));
+    sb.auth.onAuthStateChange((_e, session) => handleSession(session));
   });
 
+  function buildAssetSelect() {
+    const sel = $("mov-activo");
+    sel.innerHTML = "";
+    ASSETS.forEach(a => {
+      const o = document.createElement("option");
+      o.value = a.key; o.textContent = a.emoji + "  " + a.label;
+      sel.appendChild(o);
+    });
+  }
+
   function bindEvents() {
-    // Auth
     $("auth-form").addEventListener("submit", onAuthSubmit);
-    $("switch-link").addEventListener("click", () => {
-      authMode = authMode === "signin" ? "signup" : "signin";
-      applyAuthMode();
-    });
-    // App
-    $("logout-btn").addEventListener("click", async () => {
-      if (DEMO) { window.location.search = ""; return; }
-      await sb.auth.signOut();
-    });
-    $("entry-form").addEventListener("submit", onSaveEntry);
-    $("clear-btn").addEventListener("click", clearForm);
+    $("switch-link").addEventListener("click", () => { authMode = authMode === "signin" ? "signup" : "signin"; applyAuthMode(); });
+    $("logout-btn").addEventListener("click", async () => { if (DEMO) { window.location.search = ""; return; } await sb.auth.signOut(); });
+    $("mov-form").addEventListener("submit", onSaveMov);
+    $("mov-clear").addEventListener("click", () => { $("mov-importe").value = ""; $("mov-fecha").value = todayISO(); hideMsg($("mov-msg")); });
     $("export-btn").addEventListener("click", exportCSV);
-  }
-
-  function startDemo() {
-    $("config-warning").style.display = "none";
-    $("auth-view").style.display = "none";
-    $("app-view").style.display = "block";
-    $("demo-banner").style.display = "block";
-    $("user-email").textContent = "modo demo";
-    user = { id: "demo", email: "demo@local" };
-    bindEvents();
-    rows = buildDemoData();
-    renderAll();
-    loadBtcPrice();
-  }
-
-  function buildDemoData() {
-    const out = [];
-    const start = new Date();
-    start.setMonth(start.getMonth() - 9);
-    let w = 3000, e = 1200, b = 800, rf = 1000;
-    for (let i = 0; i < 10; i++) {
-      const d = new Date(start.getFullYear(), start.getMonth() + i, 1);
-      const iso = new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
-      out.push({
-        id: "demo-" + i,
-        fecha: iso,
-        msci_world: Math.round(w),
-        msci_emerging: Math.round(e),
-        bitcoin: Math.round(b),
-        renta_fija: Math.round(rf)
-      });
-      w *= 1.045;
-      e *= 1.03 + (Math.random() - 0.4) * 0.05;
-      b *= 1.07 + (Math.random() - 0.45) * 0.18;
-      rf *= 1.006;
-    }
-    return out;
+    $("mov-tipo").addEventListener("click", (e) => {
+      const b = e.target.closest("button[data-tipo]"); if (!b) return;
+      movTipo = b.getAttribute("data-tipo");
+      $("mov-tipo").querySelectorAll("button").forEach(x => x.classList.remove("active"));
+      b.classList.add("active");
+    });
   }
 
   function applyAuthMode() {
@@ -511,24 +402,15 @@
 
   async function onAuthSubmit(e) {
     e.preventDefault();
-    const email = $("email").value.trim();
-    const password = $("password").value;
-    const btn = $("auth-submit");
-    const msg = $("auth-msg");
-    hideMsg(msg);
-    btn.disabled = true;
-    const original = btn.textContent;
-    btn.textContent = "Un momento...";
-
+    const email = $("email").value.trim(), password = $("password").value;
+    const btn = $("auth-submit"), msg = $("auth-msg");
+    hideMsg(msg); btn.disabled = true; const orig = btn.textContent; btn.textContent = "Un momento...";
     try {
       if (authMode === "signup") {
         const { data, error } = await sb.auth.signUp({ email, password });
         if (error) throw error;
-        if (data.session) {
-          showMsg(msg, "Cuenta creada. ¡Bienvenido!", "ok");
-        } else {
-          showMsg(msg, "Cuenta creada. Revisa tu correo para confirmarla y luego inicia sesión.", "info");
-        }
+        if (data.session) showMsg(msg, "Cuenta creada. ¡Bienvenido!", "ok");
+        else showMsg(msg, "Cuenta creada. Revisa tu correo para confirmarla y luego inicia sesión.", "info");
       } else {
         const { error } = await sb.auth.signInWithPassword({ email, password });
         if (error) throw error;
@@ -539,10 +421,7 @@
       if (/Email not confirmed/i.test(m)) m = "Falta confirmar tu correo. Revisa tu bandeja de entrada.";
       if (/User already registered/i.test(m)) m = "Ese correo ya está registrado. Inicia sesión.";
       showMsg(msg, m, "error");
-    } finally {
-      btn.disabled = false;
-      btn.textContent = original;
-    }
+    } finally { btn.disabled = false; btn.textContent = orig; }
   }
 
   function handleSession(session) {
@@ -555,305 +434,305 @@
     } else {
       $("app-view").style.display = "none";
       $("auth-view").style.display = "block";
-      rows = [];
+      movs = [];
     }
   }
 
-  /* ---------------- Datos ---------------- */
-  async function loadData() {
-    const { data, error } = await sb
-      .from("snapshots")
-      .select("*")
-      .order("fecha", { ascending: true });
-
-    if (error) {
-      console.error(error);
-      showMsg($("entry-msg"), "No se pudieron cargar los datos: " + error.message, "error");
-      return;
+  /* ---------- datos ---------- */
+  async function loadPrices() {
+    try {
+      const res = await fetch("data/prices.json?v=" + Date.now(), { cache: "no-store" });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      prices = await res.json();
+      $("prices-note").textContent = "Precios actualizados: " + (prices.generated ? new Date(prices.generated).toLocaleString("es-ES") : "—");
+      $("prices-warn").style.display = "none";
+    } catch (e) {
+      prices = null;
+      $("prices-note").textContent = "Precios no disponibles";
+      $("prices-warn").style.display = "block";
+      $("prices-warn").textContent = "⚠️ No se pudieron cargar los precios (data/prices.json). Se mostrará solo lo invertido, sin rentabilidad.";
     }
-    rows = data || [];
+    if (movs.length || user) renderAll();
+  }
+
+  async function loadData() {
+    const { data, error } = await sb.from("movimientos").select("*").order("fecha", { ascending: true }).order("created_at", { ascending: true });
+    if (error) { showMsg($("mov-msg"), "No se pudieron cargar los movimientos: " + error.message, "error"); return; }
+    movs = data || [];
     renderAll();
   }
 
-  async function onSaveEntry(e) {
+  async function onSaveMov(e) {
     e.preventDefault();
-    const msg = $("entry-msg");
-    hideMsg(msg);
-    if (DEMO) { showMsg(msg, "Modo demo: los datos no se guardan. Configura Supabase para guardar de verdad.", "info"); return; }
-    const btn = $("save-btn");
-    btn.disabled = true;
-
-    const payload = {
-      user_id: user.id,
-      fecha: $("fecha").value,
-      msci_world: Number($("msci_world").value) || 0,
-      msci_emerging: Number($("msci_emerging").value) || 0,
-      bitcoin: Number($("bitcoin").value) || 0,
-      renta_fija: Number($("renta_fija").value) || 0
-    };
-
+    const msg = $("mov-msg"); hideMsg(msg);
+    const importe = Number($("mov-importe").value);
+    if (!(importe > 0)) { showMsg(msg, "Introduce un importe mayor que 0.", "error"); return; }
+    if (DEMO) { showMsg(msg, "Modo demo: los movimientos no se guardan.", "info"); return; }
+    const btn = $("mov-save"); btn.disabled = true;
     try {
-      const { error } = await sb
-        .from("snapshots")
-        .upsert(payload, { onConflict: "user_id,fecha" });
+      const payload = { user_id: user.id, fecha: $("mov-fecha").value, activo: $("mov-activo").value, tipo: movTipo, importe: importe };
+      const { error } = await sb.from("movimientos").insert(payload);
       if (error) throw error;
-      showMsg(msg, "Guardado correctamente ✔", "ok");
+      showMsg(msg, (movTipo === "aportacion" ? "Aportación" : "Retirada") + " guardada ✔", "ok");
+      $("mov-importe").value = "";
       await loadData();
-    } catch (err) {
-      showMsg(msg, "Error al guardar: " + (err.message || err), "error");
-    } finally {
-      btn.disabled = false;
-    }
+    } catch (err) { showMsg(msg, "Error al guardar: " + (err.message || err), "error"); }
+    finally { btn.disabled = false; }
   }
 
-  async function deleteRow(id) {
-    if (DEMO) { alert("Modo demo: no se pueden borrar registros."); return; }
-    if (!confirm("¿Eliminar este registro?")) return;
-    const { error } = await sb.from("snapshots").delete().eq("id", id);
+  async function deleteMov(id) {
+    if (DEMO) { alert("Modo demo: no se puede borrar."); return; }
+    if (!confirm("¿Eliminar este movimiento?")) return;
+    const { error } = await sb.from("movimientos").delete().eq("id", id);
     if (error) { alert("Error al borrar: " + error.message); return; }
     await loadData();
   }
 
-  function editRow(id) {
-    const r = rows.find(x => x.id === id);
-    if (!r) return;
-    $("fecha").value = r.fecha;
-    ASSETS.forEach(a => { $(a.key).value = Number(r[a.key]) || 0; });
-    window.scrollTo({ top: document.querySelector("#entry-form").getBoundingClientRect().top + window.scrollY - 20, behavior: "smooth" });
-  }
-
-  function clearForm() {
-    $("fecha").value = todayISO();
-    ASSETS.forEach(a => { $(a.key).value = 0; });
-    hideMsg($("entry-msg"));
-  }
-
   function exportCSV() {
-    if (!rows.length) { alert("No hay datos para exportar."); return; }
-    const head = ["fecha", ...ASSETS.map(a => a.key), "total"];
-    const lines = [head.join(";")];
-    rows.forEach(r => {
-      lines.push([r.fecha, ...ASSETS.map(a => (Number(r[a.key]) || 0).toFixed(2)), totalOf(r).toFixed(2)].join(";"));
+    if (!movs.length) { alert("No hay movimientos para exportar."); return; }
+    const lines = ["fecha;activo;tipo;importe;precio;participaciones"];
+    movs.forEach(m => {
+      const info = prices && prices.assets[m.activo];
+      const p = info ? priceOnOrBefore(info.series, m.fecha) : "";
+      const u = p ? (m.tipo === "retirada" ? -1 : 1) * Number(m.importe) / p : "";
+      lines.push([m.fecha, m.activo, m.tipo, Number(m.importe).toFixed(2), p ? p : "", u ? u.toFixed(6) : ""].join(";"));
     });
     const blob = new Blob(["\uFEFF" + lines.join("\n")], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "finanzas_" + todayISO() + ".csv";
-    a.click();
+    const a = document.createElement("a"); a.href = url; a.download = "finanzas_" + todayISO() + ".csv"; a.click();
     URL.revokeObjectURL(url);
   }
 
-  /* ---------------- Render ---------------- */
+  /* ---------- cálculo de la cartera ---------- */
+  function computePortfolio() {
+    const perAsset = {};
+    let totalValue = 0, totalInvested = 0, totalDayEur = 0;
+    ASSETS.forEach(a => {
+      const info = prices && prices.assets ? prices.assets[a.key] : null;
+      const series = info ? info.series : null;
+      const list = movs.filter(m => m.activo === a.key).sort((x, y) => (x.fecha < y.fecha ? -1 : x.fecha > y.fecha ? 1 : 0));
+      let units = 0, invested = 0;
+      list.forEach(m => {
+        const sign = m.tipo === "retirada" ? -1 : 1;
+        invested += sign * Number(m.importe);
+        if (series) { const p = priceOnOrBefore(series, m.fecha); if (p) units += sign * Number(m.importe) / p; }
+      });
+      let value = invested, dayPct = 0, dayEur = 0, lastPrice = null, prevPrice = null, lastDate = null;
+      if (series && series.length) {
+        const lp = series[series.length - 1];
+        const pp = series.length > 1 ? series[series.length - 2] : lp;
+        lastPrice = lp[1]; lastDate = lp[0]; prevPrice = pp[1];
+        value = units * lastPrice;
+        dayPct = prevPrice > 0 ? (lastPrice - prevPrice) / prevPrice : 0;
+        dayEur = units * (lastPrice - prevPrice);
+      }
+      const pl = value - invested;
+      perAsset[a.key] = { units, invested, value, pl, plPct: invested > 0 ? pl / invested : 0, dayPct, dayEur, lastPrice, prevPrice, lastDate, hasPrices: !!series };
+      totalValue += value; totalInvested += invested; totalDayEur += dayEur;
+    });
+    const totalPl = totalValue - totalInvested;
+    const prevTotal = totalValue - totalDayEur;
+    return {
+      perAsset, totalValue, totalInvested, totalPl,
+      totalPlPct: totalInvested > 0 ? totalPl / totalInvested : 0,
+      totalDayEur, totalDayPct: prevTotal !== 0 ? totalDayEur / prevTotal : 0
+    };
+  }
+
+  function buildValueSeries(perAsset) {
+    const empty = { labels: [], total: [], perAsset: {} };
+    if (!prices || !prices.assets || !movs.length) return empty;
+    const firstDate = movs.reduce((min, m) => (m.fecha < min ? m.fecha : min), movs[0].fecha);
+    const dateSet = new Set();
+    ASSETS.forEach(a => {
+      const info = prices.assets[a.key]; if (!info || !info.series) return;
+      info.series.forEach(pt => { if (pt[0] >= firstDate) dateSet.add(pt[0]); });
+    });
+    const labels = Array.from(dateSet).sort();
+    // pasos de unidades por activo
+    const steps = {};
+    ASSETS.forEach(a => {
+      const info = prices.assets[a.key];
+      steps[a.key] = info && info.series ? movs.filter(m => m.activo === a.key).map(m => {
+        const p = priceOnOrBefore(info.series, m.fecha);
+        const sign = m.tipo === "retirada" ? -1 : 1;
+        return { fecha: m.fecha, du: p ? sign * Number(m.importe) / p : 0 };
+      }) : [];
+    });
+    const total = [], seriesByAsset = {};
+    ASSETS.forEach(a => { seriesByAsset[a.key] = []; });
+    labels.forEach(d => {
+      let sum = 0;
+      ASSETS.forEach(a => {
+        const info = prices.assets[a.key]; if (!info || !info.series) { seriesByAsset[a.key].push(null); return; }
+        let units = 0;
+        steps[a.key].forEach(s => { if (s.fecha <= d) units += s.du; });
+        const p = priceOnOrBefore(info.series, d) || 0;
+        const v = units * p;
+        seriesByAsset[a.key].push(v);
+        sum += v;
+      });
+      total.push(sum);
+    });
+    return { labels, total, perAsset: seriesByAsset };
+  }
+
+  /* ---------- render ---------- */
   function renderAll() {
-    renderKpis();
-    renderAssetList();
-    renderDonut();
-    renderLine();
+    const p = computePortfolio();
+    renderKpis(p);
+    renderAssetList(p);
+    renderDonut(p);
+    const series = buildValueSeries(p);
+    renderLine(series);
     renderTable();
   }
 
-  function latestRow() { return rows.length ? rows[rows.length - 1] : null; }
+  function renderKpis(p) {
+    const has = movs.length > 0;
+    $("kpi-value").textContent = has ? eur.format(p.totalValue) : "—";
+    $("kpi-value-sub").textContent = has && prices ? "Valor de mercado hoy" : (has ? "Sin precios" : "Sin movimientos");
 
-  function renderKpis() {
-    const last = latestRow();
-    if (!last) {
-      $("kpi-total").textContent = "—";
-      $("kpi-total-sub").textContent = "Sin registros";
-      $("kpi-change").textContent = "—";
-      $("kpi-change-sub").textContent = "—";
-      $("kpi-last").textContent = "—";
-      $("kpi-last-sub").textContent = "—";
-      return;
-    }
-    const total = totalOf(last);
-    $("kpi-total").textContent = eur.format(total);
-    $("kpi-total-sub").textContent = rows.length + (rows.length === 1 ? " registro" : " registros");
+    $("kpi-invested").textContent = has ? eur.format(p.totalInvested) : "—";
+    $("kpi-invested-sub").textContent = has ? (movs.length + (movs.length === 1 ? " movimiento" : " movimientos")) : "—";
 
-    const first = rows[0];
-    const firstTotal = totalOf(first);
-    const diff = total - firstTotal;
-    const diffPct = firstTotal > 0 ? diff / firstTotal : 0;
-    const arrow = diff >= 0 ? "▲" : "▼";
-    const cls = diff >= 0 ? "up" : "down";
-    $("kpi-change").innerHTML = `<span class="${cls}">${arrow} ${eur.format(Math.abs(diff))}</span>`;
-    $("kpi-change-sub").innerHTML = `<span class="${cls}">${diff >= 0 ? "+" : "−"}${pct(Math.abs(diffPct))}</span> · desde ${fmtDateLong(first.fecha)}`;
+    const c = p.totalPl >= 0 ? "up" : "down";
+    $("kpi-pl").innerHTML = has ? `<span class="${c}">${signed(p.totalPl)}</span>` : "—";
+    $("kpi-pl-sub").innerHTML = has ? `<span class="${c}">${p.totalPl >= 0 ? "+" : "−"}${pctF(Math.abs(p.totalPlPct))}</span>` : "—";
 
-    $("kpi-last").textContent = fmtDateLong(last.fecha);
-    if (rows.length >= 2) {
-      const prev = rows[rows.length - 2];
-      const d = total - totalOf(prev);
-      const dp = totalOf(prev) > 0 ? d / totalOf(prev) : 0;
-      const c = d >= 0 ? "up" : "down";
-      $("kpi-last-sub").innerHTML = `<span class="${c}">${d >= 0 ? "+" : "−"}${eur.format(Math.abs(d))} (${pct(Math.abs(dp))})</span> vs anterior`;
-    } else {
-      $("kpi-last-sub").textContent = "Primer registro";
-    }
+    const cd = p.totalDayEur >= 0 ? "up" : "down";
+    $("kpi-today").innerHTML = has && prices ? `<span class="${cd}">${signed(p.totalDayEur)}</span>` : "—";
+    $("kpi-today-sub").innerHTML = has && prices ? `<span class="${cd}">${p.totalDayEur >= 0 ? "+" : "−"}${pctF(Math.abs(p.totalDayPct))}</span>` : "—";
   }
 
-  function renderAssetList() {
-    const last = latestRow();
-    const total = last ? totalOf(last) : 0;
-    const wrap = $("asset-list");
-    wrap.innerHTML = "";
+  function renderAssetList(p) {
+    const wrap = $("asset-list"); wrap.innerHTML = "";
+    const total = p.totalValue || 0;
     ASSETS.forEach(a => {
-      const val = last ? (Number(last[a.key]) || 0) : 0;
-      const share = total > 0 ? val / total : 0;
+      const d = p.perAsset[a.key];
+      const share = total > 0 ? d.value / total : 0;
+      const cls = d.pl >= 0 ? "up" : "down";
+      const dayCls = d.dayPct >= 0 ? "up" : "down";
       const row = document.createElement("div");
       row.className = "asset-row";
       row.innerHTML = `
         <div class="left">
           <span class="dot" style="background:${a.color}"></span>
-          <span class="name">${a.emoji} ${a.label}<small>${a.key === "bitcoin" ? "Cripto" : (a.key === "renta_fija" ? "Bonos / depósitos" : "Renta variable")}</small></span>
+          <span class="name">${a.emoji} ${a.label}
+            <small>Invertido ${eur.format(d.invested)}</small>
+          </span>
         </div>
         <div class="right">
-          <div class="amount">${eur.format(val)}</div>
-          <div class="pct">${pct(share)}</div>
+          <div class="amount">${eur.format(d.value)}</div>
+          <div class="pct">${pctF(share)} · <span class="${cls}">${signed(d.pl)} (${d.pl >= 0 ? "+" : "−"}${pctF(Math.abs(d.plPct))})</span></div>
+          ${d.hasPrices ? `<div style="margin-top:4px;"><span class="chip ${dayCls}">hoy ${d.dayPct >= 0 ? "+" : "−"}${pctF(Math.abs(d.dayPct))}</span></div>` : ""}
         </div>`;
       wrap.appendChild(row);
     });
   }
 
-  function renderDonut() {
-    const last = latestRow();
-    const data = last ? ASSETS.map(a => Number(last[a.key]) || 0) : ASSETS.map(() => 0);
-    const hasData = data.some(v => v > 0);
-
+  function renderDonut(p) {
+    const data = ASSETS.map(a => p.perAsset[a.key].value);
+    const hasData = data.some(v => v > 0.01);
     const cfgObj = {
       type: "doughnut",
-      data: {
-        labels: ASSETS.map(a => a.label),
-        datasets: [{
-          data: hasData ? data : [1, 1, 1, 1],
-          backgroundColor: ASSETS.map(a => a.color),
-          borderWidth: 2,
-          borderColor: "#ffffff"
-        }]
-      },
+      data: { labels: ASSETS.map(a => a.label), datasets: [{ data: hasData ? data : [1, 1, 1, 1], backgroundColor: ASSETS.map(a => a.color), borderWidth: 2, borderColor: "#fff" }] },
       options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: "62%",
+        responsive: true, maintainAspectRatio: false, cutout: "62%",
         plugins: {
           legend: { position: "bottom", labels: { boxWidth: 12, font: { size: 12 } } },
-          tooltip: {
-            callbacks: {
-              label: (ctx) => {
-                if (!hasData) return "Sin datos";
-                const v = ctx.parsed;
-                const sum = ctx.dataset.data.reduce((s, x) => s + x, 0);
-                return `${ctx.label}: ${eur.format(v)} (${sum > 0 ? (v / sum * 100).toFixed(1) : 0} %)`;
-              }
-            }
-          }
+          tooltip: { callbacks: { label: (ctx) => { if (!hasData) return "Sin datos"; const sum = ctx.dataset.data.reduce((s, x) => s + x, 0); return `${ctx.label}: ${eur.format(ctx.parsed)} (${sum > 0 ? (ctx.parsed / sum * 100).toFixed(1) : 0} %)`; } } }
         }
       }
     };
-
     if (donutChart) { donutChart.data = cfgObj.data; donutChart.options = cfgObj.options; donutChart.update(); }
     else donutChart = new Chart($("donut"), cfgObj);
   }
 
-  function renderLine() {
-    const labels = rows.map(r => fmtDateShort(r.fecha));
-    const totalData = rows.map(r => totalOf(r));
-
+  function renderLine(series) {
+    const labels = series.labels.map(fmtDate);
     const datasets = [{
-      label: "Total",
-      data: totalData,
-      borderColor: "#4f46e5",
-      backgroundColor: "rgba(79,70,229,0.10)",
-      borderWidth: 3,
-      tension: 0.3,
-      fill: true,
-      pointRadius: 3,
-      pointHoverRadius: 6
+      label: "Total", data: series.total, borderColor: "#4f46e5", backgroundColor: "rgba(79,70,229,0.10)",
+      borderWidth: 3, tension: 0.25, fill: true, pointRadius: 0, pointHoverRadius: 5
     }];
-
     ASSETS.forEach(a => {
-      datasets.push({
-        label: a.label,
-        data: rows.map(r => Number(r[a.key]) || 0),
-        borderColor: a.color,
-        backgroundColor: a.color,
-        borderWidth: 2,
-        tension: 0.3,
-        fill: false,
-        hidden: true,
-        pointRadius: 2,
-        pointHoverRadius: 5
-      });
+      datasets.push({ label: a.label, data: series.perAsset[a.key], borderColor: a.color, backgroundColor: a.color, borderWidth: 1.6, tension: 0.25, fill: false, hidden: true, pointRadius: 0, pointHoverRadius: 4 });
     });
-
     const cfgObj = {
       type: "line",
       data: { labels, datasets },
       options: {
-        responsive: true,
-        maintainAspectRatio: false,
+        responsive: true, maintainAspectRatio: false,
         interaction: { mode: "index", intersect: false },
         plugins: {
           legend: { position: "bottom", labels: { boxWidth: 12, font: { size: 12 } } },
-          tooltip: {
-            callbacks: {
-              label: (ctx) => `${ctx.dataset.label}: ${eur.format(ctx.parsed.y)}`
-            }
-          }
+          tooltip: { callbacks: { label: (ctx) => `${ctx.dataset.label}: ${eur.format(ctx.parsed.y)}` } }
         },
         scales: {
-          y: {
-            beginAtZero: true,
-            ticks: { callback: (v) => eurShort.format(v) },
-            grid: { color: "#eef2f7" }
-          },
-          x: { grid: { display: false } }
+          y: { beginAtZero: true, ticks: { callback: (v) => eur0.format(v) }, grid: { color: "#eef2f7" } },
+          x: { grid: { display: false }, ticks: { maxTicksLimit: 10, autoSkip: true } }
         }
       }
     };
-
     if (lineChart) { lineChart.data = cfgObj.data; lineChart.options = cfgObj.options; lineChart.update(); }
     else lineChart = new Chart($("line"), cfgObj);
   }
 
   function renderTable() {
-    const body = $("history-body");
-    const empty = $("history-empty");
+    const body = $("mov-body"), empty = $("mov-empty");
     body.innerHTML = "";
-    if (!rows.length) { empty.style.display = "block"; return; }
+    if (!movs.length) { empty.style.display = "block"; return; }
     empty.style.display = "none";
-
-    // más reciente arriba
-    [...rows].reverse().forEach(r => {
+    [...movs].reverse().forEach(m => {
+      const a = ASSET_MAP[m.activo] || { label: m.activo, emoji: "" };
+      const info = prices && prices.assets ? prices.assets[m.activo] : null;
+      const p = info ? priceOnOrBefore(info.series, m.fecha) : null;
+      const u = p ? Number(m.importe) / p : null;
+      const tag = m.tipo === "retirada" ? '<span class="tag re">Retirada</span>' : '<span class="tag ap">Aportación</span>';
       const tr = document.createElement("tr");
       tr.innerHTML = `
-        <td>${fmtDateShort(r.fecha)}</td>
-        <td>${eur.format(Number(r.msci_world) || 0)}</td>
-        <td>${eur.format(Number(r.msci_emerging) || 0)}</td>
-        <td>${eur.format(Number(r.bitcoin) || 0)}</td>
-        <td>${eur.format(Number(r.renta_fija) || 0)}</td>
-        <td><strong>${eur.format(totalOf(r))}</strong></td>
-        <td style="text-align:right;">
-          <button class="btn btn-ghost btn-mini" data-edit="${r.id}">Editar</button>
-          <button class="btn btn-danger" data-del="${r.id}">Borrar</button>
-        </td>`;
+        <td>${fmtDate(m.fecha)}</td>
+        <td>${a.emoji} ${a.label}</td>
+        <td>${tag}</td>
+        <td>${m.tipo === "retirada" ? "−" : "+"}${eur.format(Number(m.importe))}</td>
+        <td>${p ? num.format(p) : "—"}</td>
+        <td>${u ? num.format(u) : "—"}</td>
+        <td style="text-align:right;"><button class="btn btn-danger" data-del="${m.id}">Borrar</button></td>`;
       body.appendChild(tr);
     });
-
-    body.querySelectorAll("[data-edit]").forEach(b => b.addEventListener("click", () => editRow(b.getAttribute("data-edit"))));
-    body.querySelectorAll("[data-del]").forEach(b => b.addEventListener("click", () => deleteRow(b.getAttribute("data-del"))));
+    body.querySelectorAll("[data-del]").forEach(b => b.addEventListener("click", () => deleteMov(b.getAttribute("data-del"))));
   }
 
-  /* ---------------- Precio BTC (público, sin clave) ---------------- */
-  async function loadBtcPrice() {
-    try {
-      const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=eur");
-      if (!res.ok) throw new Error("http " + res.status);
-      const data = await res.json();
-      const price = data.bitcoin.eur;
-      $("kpi-btc").textContent = eur.format(price);
-    } catch (e) {
-      $("kpi-btc").textContent = "—";
+  /* ---------- demo ---------- */
+  function startDemo() {
+    $("config-warning").style.display = "none";
+    $("auth-view").style.display = "none";
+    $("app-view").style.display = "block";
+    $("demo-banner").style.display = "block";
+    $("user-email").textContent = "modo demo";
+    user = { id: "demo", email: "demo@local" };
+    bindEvents();
+    movs = buildDemoMovs();
+    loadPrices().then(renderAll);
+    renderAll();
+  }
+
+  function buildDemoMovs() {
+    const out = [];
+    const now = new Date();
+    const plan = [
+      ["msci_world", 300, 0], ["msci_emerging", 120, 0], ["bitcoin", 100, 0], ["renta_fija", 150, 0]
+    ];
+    let id = 0;
+    for (let m = 11; m >= 0; m--) {
+      const d = new Date(now.getFullYear(), now.getMonth() - m, 5);
+      const iso = new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+      plan.forEach(([activo, base]) => {
+        out.push({ id: "demo-" + (id++), fecha: iso, activo, tipo: "aportacion", importe: base + Math.round((Math.random() - 0.3) * 40), created_at: iso });
+      });
     }
+    out.push({ id: "demo-x", fecha: new Date(now.getFullYear(), now.getMonth() - 2, 20).toISOString().slice(0, 10), activo: "bitcoin", tipo: "retirada", importe: 150, created_at: "z" });
+    return out;
   }
 })();
 </script>
